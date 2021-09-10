@@ -12,5 +12,5 @@ import za.ac.nwu.ac.logic.config.LogicConfig;
         "za.ac.nwu.ac.web.sb.controller"
 })
 public class WebConfig {
-
 }
+

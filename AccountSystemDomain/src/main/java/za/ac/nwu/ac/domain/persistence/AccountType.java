@@ -28,6 +28,9 @@ public class AccountType {
         this.creationDate = creationDate;
     }
 
+    public AccountType(String mnemonic, String accountTypeName, LocalDate creationDate) {
+    }
+
     @Id
     @SequenceGenerator(name = "VIT_RSA_GENERIC_SEQ", sequenceName = "VITRSA_SANDBOX.VIT_RSA_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VIT_RSA_GENERIC_SEQ")
