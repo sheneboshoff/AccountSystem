@@ -1,4 +1,4 @@
-package za.ac.nwu.ac.translator.persistence;
+package za.ac.nwu.ac.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

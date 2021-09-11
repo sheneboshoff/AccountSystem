@@ -7,8 +7,6 @@ import za.ac.nwu.ac.logic.flow.FetchAccountTypeFlow;
 import za.ac.nwu.ac.translator.AccountTypeTranslator;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -18,7 +16,7 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
     private final AccountTypeTranslator accountTypeTranslator;
 
     @Autowired
-    public  FetchAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator) {
+    public FetchAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator) {
         this.accountTypeTranslator = accountTypeTranslator;
     }
 
