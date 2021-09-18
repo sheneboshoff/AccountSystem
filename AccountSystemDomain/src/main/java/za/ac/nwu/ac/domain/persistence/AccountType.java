@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Table(name = "ACCOUNT_TYPE", schema = "VITRSA_SANDBOX")
+@Table(name = "accountType", schema = "HR")
 public class AccountType {
 
     private Long accountTypeID;
@@ -32,8 +32,8 @@ public class AccountType {
     }
 
     @Id
-    @SequenceGenerator(name = "VIT_RSA_GENERIC_SEQ", sequenceName = "VITRSA_SANDBOX.VIT_RSA_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VIT_RSA_GENERIC_SEQ")
+    @SequenceGenerator(name = "ACC_TX_SEQ", sequenceName = "HR.ACC_TX_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACC_TX_SEQ")
 
     @Column(name = "ACCOUNT_TYPE_ID")
     public Long getAccountTypeID() {

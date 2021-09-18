@@ -12,6 +12,7 @@ import java.util.List;
 
 @Component
 public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
+
     private final AccountTypeRepository accountTypeRepository;
 
     @Autowired
@@ -40,6 +41,35 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
             return new AccountTypeDto(accountType);
         } catch (Exception e) {
             throw new RuntimeException("Unable to save to the database",e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto getAccountTypeByMnemonicNativeQuery(String mnemonic) {
+        try {
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonicNativeQuery(mnemonic);
+            return new AccountTypeDto(accountType);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto getAccountTypeByMnemonic(String mnemonic) {
+        try {
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonic(mnemonic);
+            return new AccountTypeDto(accountType);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic) {
+        try {
+            return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read from the DB", e);
         }
     }
 }
