@@ -21,9 +21,13 @@ public class ModuloTest {
         assertEquals("Should be value 4", 4, result.intValue());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testModBy0() throws Exception {
-        Integer result = mod.doMod(9, 0);
-        fail("Should throw an exception");
+    @Test
+    public void testModBy0() {
+        try {
+            mod.doMod(9, 0);
+            fail("Should throw an exception");
+        } catch (Exception e) {
+            assertTrue("Error message not as expected", e.getMessage().equalsIgnoreCase("Some Reason"));
+        }
     }
 }
