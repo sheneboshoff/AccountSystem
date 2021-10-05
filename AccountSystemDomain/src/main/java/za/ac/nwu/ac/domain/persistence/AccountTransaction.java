@@ -28,6 +28,9 @@ public class AccountTransaction implements Serializable {
         this.transactionDate = transactionDate;
     }
 
+    public AccountTransaction(Long amount, LocalDate transactionDate) {
+    }
+
     @Id
     @SequenceGenerator(name = "ACC_TX_SEQ", sequenceName = "HR.ACC_TX_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACC_TX_SEQ")

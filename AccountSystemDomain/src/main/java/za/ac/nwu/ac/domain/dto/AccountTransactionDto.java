@@ -1,5 +1,6 @@
 package za.ac.nwu.ac.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import za.ac.nwu.ac.domain.persistence.AccountTransaction;
@@ -65,6 +66,11 @@ public class AccountTransactionDto implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransactionDto that = (AccountTransactionDto) o;
         return Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
+    }
+
+    @JsonIgnore
+    public AccountTransaction getAccountTransaction() {
+        return new AccountTransaction(getAmount(), getTransactionDate());
     }
 
     @Override

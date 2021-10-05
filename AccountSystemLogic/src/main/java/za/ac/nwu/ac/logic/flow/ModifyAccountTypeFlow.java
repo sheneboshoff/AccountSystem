@@ -12,7 +12,4 @@ public interface ModifyAccountTypeFlow {
     AccountTypeDto updateAccountType();
 
     AccountTypeDto updateAccountType(String anyString, String anyString1, LocalDate any);
-
-    //add deleteAccountType
-    //add updateAccountType
 }
