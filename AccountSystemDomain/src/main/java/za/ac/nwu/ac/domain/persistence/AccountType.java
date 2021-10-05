@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Table(name = "accountType", schema = "HR")
+@Table(name = "Account_Type", schema = "HR")
 public class AccountType {
 
     private Long accountTypeID;
