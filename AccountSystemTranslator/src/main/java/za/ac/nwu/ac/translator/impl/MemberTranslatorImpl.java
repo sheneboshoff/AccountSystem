@@ -43,4 +43,26 @@ public class MemberTranslatorImpl implements MemberTranslator {
             throw new RuntimeException("Unable to save to the database",e);
         }
     }
+
+    @Override
+    public MemberDto deleteMemberByMemberID(Long memberID) {
+        try {
+            Member member = memberRepository.getMemberByMemberID(memberID);
+            memberRepository.deleteMemberByMemberID(memberID);
+            return new MemberDto(member);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to update the database", e);
+        }
+    }
+
+    @Override
+    public MemberDto updateMemberByMemberID(String newMemberName, String newMemberEmail, Long memberID) {
+        try {
+            Member member = memberRepository.getMemberByMemberID(memberID);
+            memberRepository.updateMemberByMemberID(newMemberName, newMemberEmail, memberID);
+            return new MemberDto(member);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to update the database", e);
+        }
+    }
 }

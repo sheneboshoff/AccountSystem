@@ -6,9 +6,7 @@ import java.time.LocalDate;
 
 public interface ModifyMemberFlow {
 
-    MemberDto deleteMember(Long memberID);
+    MemberDto deleteMemberByMemberID(Long memberID);
 
-    MemberDto updateMember();
-
-    MemberDto updateMember(String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined);
+    MemberDto updateMemberByMemberID(String memberNewName, String memberEmail, Long memberID);
 }

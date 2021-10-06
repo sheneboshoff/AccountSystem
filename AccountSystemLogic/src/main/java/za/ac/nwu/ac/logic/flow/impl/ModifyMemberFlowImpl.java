@@ -21,18 +21,13 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
     }
 
     @Override
-    public MemberDto deleteMember(Long memberID){
-        return null;
+    public MemberDto deleteMemberByMemberID(Long memberID){
+        return memberTranslator.deleteMemberByMemberID(memberID);
     }
 
     @Override
-    public MemberDto updateMember(){
-        return null;
-    }
-
-    @Override
-    public MemberDto updateMember(String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined){
-        return null;
+    public MemberDto updateMemberByMemberID(String memberNewName, String memberEmail, Long memberID){
+        return memberTranslator.updateMemberByMemberID(memberNewName, memberEmail, memberID);
     }
 
 }

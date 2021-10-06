@@ -27,6 +27,10 @@ public class Member {
     }
 
     public Member(String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined) {
+        this.memberName = memberName;
+        this.memberEmail = memberEmail;
+        this.accountAmount = accountAmount;
+        this.dateJoined = dateJoined;
     }
 
     @Id

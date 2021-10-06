@@ -56,8 +56,7 @@ public class MemberDto implements Serializable {
             name = "MemberEmail",
             notes = "Email of member",
             dataType = "java.lang.String",
-            example = "sheneboshoff6@gmail.com",
-            required = false)
+            example = "sheneboshoff6@gmail.com")
     public String getMemberEmail() {
         return memberEmail;
     }
@@ -71,8 +70,7 @@ public class MemberDto implements Serializable {
             name = "AccountAmount",
             notes = "Amount of currency",
             dataType = "java.lang.String",
-            example = "200",
-            required = false)
+            example = "200")
     public Long getAccountAmount() {
         return accountAmount;
     }
@@ -86,8 +84,7 @@ public class MemberDto implements Serializable {
             name = "DateJoined",
             notes = "Date that member joined",
             dataType = "java.lang.String",
-            example = "2021-10-10",
-            required = false)
+            example = "2021-10-10")
     public LocalDate getDateJoined() {
         return dateJoined;
     }
