@@ -16,4 +16,6 @@ public interface MemberTranslator {
     MemberDto updateMemberByMemberID(String newMemberName, String newMemberEmail, Long memberID);
 
     MemberDto deleteMemberByMemberID(Long memberID);
+
+    MemberDto getMemberByMemberID(Long memberID);
 }

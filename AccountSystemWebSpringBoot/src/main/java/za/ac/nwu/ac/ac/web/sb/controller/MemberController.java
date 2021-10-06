@@ -49,6 +49,25 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("memberID")
+    @ApiOperation(value = "Fetches the specified Member.", notes = "Fetches the specified Member corresponding to the given MemberID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Goal Found"),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Resource not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
+    })
+    public ResponseEntity<GeneralResponse<MemberDto>> getMember (
+            @ApiParam(value = "The memberID that uniquely identifies the Member.",
+                example = "1",
+                name = "memberID",
+                required = true)
+            @RequestParam("memberID") final Long memberID) {
+        MemberDto member = fetchMemberFlow.getMemberByMemberID(memberID);
+        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, member);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PostMapping("")
     @ApiOperation(value = "Creates a new Member.", notes = "Creates a new Member in the DB.")
     @ApiResponses(value = {

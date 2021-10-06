@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import za.ac.nwu.ac.domain.persistence.AccountTransaction;
+import za.ac.nwu.ac.domain.persistence.AccountType;
+import za.ac.nwu.ac.domain.persistence.Member;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,18 +18,29 @@ public class AccountTransactionDto implements Serializable {
 
     private Long amount;
     private LocalDate transactionDate;
+    private AccountType accountType;
+    private Member member;
+    private Long accountTypeID;
+    private Long memberID;
 
     public AccountTransactionDto() {
     }
 
-    public AccountTransactionDto(Long amount, LocalDate transactionDate) {
+    public AccountTransactionDto(Long amount, LocalDate transactionDate, Long accountTypeID, Long memberID) {
         this.amount = amount;
         this.transactionDate = transactionDate;
+        this.accountTypeID = accountTypeID;
+        this.memberID = memberID;
+    }
+
+    public AccountTransactionDto(AccountTransaction accountTransaction, Long accountTypeID, Long memberID) {
+        this.setAmount(accountTransaction.getAmount());
+        this.setTransactionDate(accountTransaction.getTransactionDate());
+        this.setAccountTypeID(accountType.getAccountTypeID());
+        this.setMemberID(member.getMemberID());
     }
 
     public AccountTransactionDto(AccountTransaction accountTransaction) {
-        this.setAmount(accountTransaction.getAmount());
-        this.setTransactionDate(accountTransaction.getTransactionDate());
     }
 
     @ApiModelProperty(position = 1,
@@ -50,14 +63,43 @@ public class AccountTransactionDto implements Serializable {
             name = "TransactionDate",
             notes = "Displays the date the transaction was created",
             dataType = "java.lang.String",
-            example = "2021-01-01",
-            required = false)
+            example = "2021-01-01")
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
 
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    @ApiModelProperty(position = 3,
+        value = "AccountTypeID",
+        name = "AccountTypeID",
+        notes = "Displays the unique ID of the AccountType",
+        dataType = "java.lang.Long",
+        example = "1",
+        required = true)
+    public Long getAccountTypeID() {
+        return accountTypeID;
+    }
+
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
+    }
+
+    @ApiModelProperty(position = 4,
+            value = "MemberID",
+            name = "MemberID",
+            notes = "Displays the unique ID of the Member",
+            dataType = "java.lang.Long",
+            example = "1",
+            required = true)
+    public Long getMemberID() {
+        return memberID;
+    }
+
+    public void setMemberID(Long memberID) {
+        this.memberID = memberID;
     }
 
     @Override

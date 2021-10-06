@@ -35,6 +35,16 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
+    public MemberDto getMemberByMemberID(Long memberID) {
+        try {
+            Member member = memberRepository.getMemberByMemberID(memberID);
+            return new MemberDto(member);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read from the database.", e);
+        }
+    }
+
+    @Override
     public MemberDto create(MemberDto memberDto) {
         try {
             Member member = memberRepository.save(memberDto.getMember());

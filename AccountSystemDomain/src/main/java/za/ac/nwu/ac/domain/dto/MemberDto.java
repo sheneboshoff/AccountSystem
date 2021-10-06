@@ -15,6 +15,7 @@ public class MemberDto implements Serializable {
 
     private static final long serialVersionUID = -3675411777951570019L;
 
+    private Long memberID;
     private String memberName;
     private String memberEmail;
     private Long accountAmount;
@@ -22,11 +23,12 @@ public class MemberDto implements Serializable {
 
     public MemberDto(){}
 
-    public MemberDto(String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined) {
+    public MemberDto(Long memberID, String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined) {
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
         this.dateJoined = dateJoined;
+        this.memberID = memberID;
     }
 
     public MemberDto(Member member) {
@@ -34,6 +36,23 @@ public class MemberDto implements Serializable {
         this.setMemberName(member.getMemberName());
         this.setAccountAmount(member.getAccountAmount());
         this.setDateJoined(member.getDateJoined());
+        this.setMemberID(member.getMemberID());
+
+    }
+
+    @ApiModelProperty(position = 5,
+        value = "Member ID",
+        name = "MemberID",
+        notes = "ID of member",
+        dataType = "java.lang.Long",
+        example = "1",
+        required = true)
+    public Long getMemberID() {
+        return memberID;
+    }
+
+    public void setMemberID(Long memberID) {
+        this.memberID = memberID;
     }
 
     @ApiModelProperty(position = 1,
