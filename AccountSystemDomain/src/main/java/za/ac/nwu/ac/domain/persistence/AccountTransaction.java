@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "accountTransaction", schema = "HR")
@@ -11,37 +12,39 @@ public class AccountTransaction implements Serializable {
 
     private static final long serialVersionUID = 5687286736050369260L;
 
-    private Long transactionId;
+    private Long transactionID;
     private AccountType accountType;
-    private Long memberId;
+    private Member member;
     private Long amount;
     private LocalDate transactionDate;
 
-    public AccountTransaction() {
-    }
-
-    public AccountTransaction(Long transactionId, AccountType accountType, Long memberId, Long amount, LocalDate transactionDate) {
-        this.transactionId = transactionId;
-        this.accountType = accountType;
-        this.memberId = memberId;
+    public AccountTransaction(Long amount, LocalDate transactionDate) {
         this.amount = amount;
         this.transactionDate = transactionDate;
     }
 
-    public AccountTransaction(Long amount, LocalDate transactionDate) {
+    public AccountTransaction() {
+    }
+
+    public AccountTransaction(Long transactionID, AccountType accountType, Member member, Long amount, LocalDate transactionDate) {
+        this.transactionID = transactionID;
+        this.accountType = accountType;
+        this.member = member;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
     }
 
     @Id
     @SequenceGenerator(name = "ACC_TX_SEQ", sequenceName = "HR.ACC_TX_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACC_TX_SEQ")
 
-    @Column(name = "ACCOUNT_TRANS_ID")
-    public Long getTransactionId() {
-        return transactionId;
+    @Column(name = "TRANSACTION_ID")
+    public Long getTransactionID() {
+        return transactionID;
     }
 
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public void setTransactionID(Long transactionID) {
+        this.transactionID = transactionID;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,13 +57,14 @@ public class AccountTransaction implements Serializable {
         this.accountType = accountType;
     }
 
-    @Column(name = "MEMBER_ID")
-    public Long getMemberId() {
-        return memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     @Column(name = "AMOUNT")
@@ -72,36 +76,12 @@ public class AccountTransaction implements Serializable {
         this.amount = amount;
     }
 
-    @Column(name = "TRANS_DATE")
+    @Column(name = "TRANSACTION_DATE")
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
 
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccountTransaction that = (AccountTransaction) o;
-        return Objects.equals(transactionId, that.transactionId) && Objects.equals(accountType, that.accountType) && Objects.equals(memberId, that.memberId) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(transactionId, accountType, memberId, amount, transactionDate);
-    }
-
-    @Override
-    public String toString() {
-        return "AccountTransaction{" +
-                "transactionId=" + transactionId +
-                ", accountTypeId=" + accountType +
-                ", memberId=" + memberId +
-                ", amount=" + amount +
-                ", transactionDate=" + transactionDate +
-                '}';
     }
 }

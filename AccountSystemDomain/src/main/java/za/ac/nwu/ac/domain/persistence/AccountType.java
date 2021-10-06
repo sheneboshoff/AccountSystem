@@ -16,7 +16,6 @@ public class AccountType {
     private String accountTypeName;
     private LocalDate creationDate;
     private Set<AccountTransaction> accountTransactions;
-//    private Set<Member> members;
 
     public AccountType() {
     }

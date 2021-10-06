@@ -14,7 +14,6 @@ public class Member {
     private String memberEmail;
     private Long accountAmount;
     private LocalDate dateJoined;
-    private Set<AccountType> accountTypes;
     private Set<AccountTransaction> accountTransactions;
 
     public Member(){}
@@ -79,16 +78,7 @@ public class Member {
         this.dateJoined = dateJoined;
     }
 
-    @OneToMany(targetEntity = AccountType.class, fetch = FetchType.LAZY, mappedBy = "member")
-    public Set<AccountType> getAccountTypes() {
-        return accountTypes;
-    }
-
-    public void setAccountTypes(Set<AccountType> accountTypes) {
-        this.accountTypes = accountTypes;
-    }
-
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member")
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }
@@ -102,12 +92,12 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(memberID, member.memberID) && Objects.equals(memberName, member.memberName) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(accountAmount, member.accountAmount) && Objects.equals(dateJoined, member.dateJoined) && Objects.equals(accountTypes, member.accountTypes) && Objects.equals(accountTransactions, member.accountTransactions);
+        return Objects.equals(memberID, member.memberID) && Objects.equals(memberName, member.memberName) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(accountAmount, member.accountAmount) && Objects.equals(dateJoined, member.dateJoined) && Objects.equals(accountTransactions, member.accountTransactions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined, accountTypes, accountTransactions);
+        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined, accountTransactions);
     }
 
     @Override
@@ -118,7 +108,6 @@ public class Member {
                 ", memberEmail='" + memberEmail + '\'' +
                 ", accountAmount=" + accountAmount +
                 ", dateJoined=" + dateJoined +
-                ", accountTypes=" + accountTypes +
                 ", accountTransactions=" + accountTransactions +
                 '}';
     }

@@ -1,11 +1,14 @@
 package za.ac.nwu.ac.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.persistence.AccountType;
+
+import java.time.LocalDate;
 
 @Repository
 public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
@@ -35,4 +38,13 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
             "           AccountType at" +
             "       WHERE at.mnemonic = :mnemonic ")
     AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic);
+
+    @Modifying
+    @Query(value = "DELETE FROM AccountType at WHERE at.mnemonic = :mnemonic")
+    void deleteAccountTypeByMnemonic(String mnemonic);
+
+    @Modifying
+    @Query(value = "UPDATE AccountType at SET at.accountTypeName = :newAccountTypeName, "+
+                "at.creationDate = :newCreationDate WHERE at.mnemonic = :mnemonic")
+    void updateAccountTypeByMnemonic(String mnemonic, String newAccountTypeName, LocalDate newCreationDate);
 }

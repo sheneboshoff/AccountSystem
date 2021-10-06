@@ -1,12 +1,14 @@
 package za.ac.nwu.ac.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.repo.persistence.AccountTypeRepository;
 import za.ac.nwu.ac.translator.AccountTypeTranslator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +72,28 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
             return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
         } catch (Exception e) {
             throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto deleteAccountTypeByMnemonic(String mnemonic) {
+        try{
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonic(mnemonic);
+            accountTypeRepository.deleteAccountTypeByMnemonic(mnemonic);
+            return new AccountTypeDto(accountType);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to update the database", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto updateAccountTypeByMnemonic(String mnemonic, String newAccountTypeName, LocalDate newCreationDate) {
+        try {
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonic(mnemonic);
+            accountTypeRepository.updateAccountTypeByMnemonic(mnemonic, newAccountTypeName, newCreationDate);
+            return new AccountTypeDto(accountType);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to update the database", e);
         }
     }
 }

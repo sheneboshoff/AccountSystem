@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface ModifyAccountTypeFlow {
 
-    AccountTypeDto deleteAccountType(String mnemonic);
-
-    AccountTypeDto updateAccountType();
+    AccountTypeDto deleteAccountTypeByMnemonic(String mnemonic);
 
     AccountTypeDto updateAccountType(String anyString, String anyString1, LocalDate any);
 }
