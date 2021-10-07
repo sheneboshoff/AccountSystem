@@ -18,12 +18,13 @@ public class MemberDto implements Serializable {
     private Long memberID;
     private String memberName;
     private String memberEmail;
-    private Long accountAmount;
+    private Integer accountAmount;
     private LocalDate dateJoined;
+    private Long accountTypeID;
 
     public MemberDto(){}
 
-    public MemberDto(Long memberID, String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined) {
+    public MemberDto(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined) {
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
@@ -31,13 +32,22 @@ public class MemberDto implements Serializable {
         this.memberID = memberID;
     }
 
-    public MemberDto(Member member) {
-        this.setMemberEmail(member.getMemberEmail());
-        this.setMemberName(member.getMemberName());
-        this.setAccountAmount(member.getAccountAmount());
-        this.setDateJoined(member.getDateJoined());
-        this.setMemberID(member.getMemberID());
+    public MemberDto(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID) {
+        this.memberName = memberName;
+        this.memberEmail = memberEmail;
+        this.accountAmount = accountAmount;
+        this.dateJoined = dateJoined;
+        this.memberID = memberID;
+        this.accountTypeID = accountTypeID;
+    }
 
+    public MemberDto(Member member) {
+        //this.setMemberEmail(member.getMemberEmail());
+        //this.setMemberName(member.getMemberName());
+        this.setAccountAmount(member.getAccountAmount());
+        //this.setDateJoined(member.getDateJoined());
+        this.setMemberID(member.getMemberID());
+        this.setAccountTypeID(member.getAccountTypeID());
     }
 
     @ApiModelProperty(position = 5,
@@ -90,11 +100,11 @@ public class MemberDto implements Serializable {
             notes = "Amount of currency",
             dataType = "java.lang.String",
             example = "200")
-    public Long getAccountAmount() {
+    public Integer getAccountAmount() {
         return accountAmount;
     }
 
-    public void setAccountAmount(Long accountAmount) {
+    public void setAccountAmount(Integer accountAmount) {
         this.accountAmount = accountAmount;
     }
 
@@ -112,6 +122,20 @@ public class MemberDto implements Serializable {
         this.dateJoined = dateJoined;
     }
 
+    @ApiModelProperty(position = 6,
+            value = "Account Type ID",
+            name = "AccountTypeID",
+            notes = "Unique ID that identifies the AccountType",
+            dataType = "java.lang.Long",
+            example = "1")
+    public Long getAccountTypeID() {
+        return accountTypeID;
+    }
+
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,20 +146,23 @@ public class MemberDto implements Serializable {
 
     @JsonIgnore
     public Member getMember() {
-        return new Member(getMemberName(), getMemberEmail(), getAccountAmount(), getDateJoined());
+        return new Member(getMemberName(), getMemberEmail(), getAccountAmount(), getDateJoined(), getAccountTypeID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberName, memberEmail, accountAmount);
+        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined, accountTypeID);
     }
 
     @Override
     public String toString() {
         return "MemberDto{" +
-                "memberName='" + memberName + '\'' +
+                "memberID=" + memberID +
+                ", memberName='" + memberName + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +
                 ", accountAmount=" + accountAmount +
+                ", dateJoined=" + dateJoined +
+                ", accountTypeID=" + accountTypeID +
                 '}';
     }
 }

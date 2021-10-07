@@ -8,6 +8,7 @@ import za.ac.nwu.ac.domain.persistence.Member;
 import za.ac.nwu.ac.repo.persistence.MemberRepository;
 import za.ac.nwu.ac.translator.MemberTranslator;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +36,9 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public MemberDto getMemberByMemberID(Long memberID) {
+    public MemberDto getMemberByMemberID(Long memberID, Long accountTypeID) {
         try {
-            Member member = memberRepository.getMemberByMemberID(memberID);
+            Member member = memberRepository.getMemberByMemberID(memberID, accountTypeID);
             return new MemberDto(member);
         } catch (Exception e) {
             throw new RuntimeException("Unable to read from the database.", e);
@@ -54,11 +55,12 @@ public class MemberTranslatorImpl implements MemberTranslator {
         }
     }
 
+    @Transactional
     @Override
-    public MemberDto deleteMemberByMemberID(Long memberID) {
+    public MemberDto updateMemberAccountAmount(Integer newAmount, Long memberID, Long accountTypeID) {
         try {
-            Member member = memberRepository.getMemberByMemberID(memberID);
-            memberRepository.deleteMemberByMemberID(memberID);
+            Member member = new Member(newAmount, memberID, accountTypeID);
+            memberRepository.updateMemberAccountAmount(newAmount, memberID, accountTypeID);
             return new MemberDto(member);
         } catch (Exception e) {
             throw new RuntimeException("Unable to update the database", e);
@@ -66,13 +68,11 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public MemberDto updateMemberByMemberID(String newMemberName, String newMemberEmail, Long memberID) {
+    public Integer getAccountAmountByMemberID(Long memberID) {
         try {
-            Member member = memberRepository.getMemberByMemberID(memberID);
-            memberRepository.updateMemberByMemberID(newMemberName, newMemberEmail, memberID);
-            return new MemberDto(member);
+            return memberRepository.getAccountAmountByMemberID(memberID);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to update the database", e);
+            throw new RuntimeException("Unable to read from the database", e);
         }
     }
 }

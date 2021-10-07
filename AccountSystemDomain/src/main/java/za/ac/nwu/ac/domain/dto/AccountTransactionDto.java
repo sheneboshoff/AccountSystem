@@ -16,7 +16,7 @@ public class AccountTransactionDto implements Serializable {
 
     private static final long serialVersionUID = -259375539087796784L;
 
-    private Long amount;
+    private Integer amount;
     private LocalDate transactionDate;
     private AccountType accountType;
     private Member member;
@@ -26,7 +26,7 @@ public class AccountTransactionDto implements Serializable {
     public AccountTransactionDto() {
     }
 
-    public AccountTransactionDto(Long amount, LocalDate transactionDate, Long accountTypeID, Long memberID) {
+    public AccountTransactionDto(Integer amount, LocalDate transactionDate, Long accountTypeID, Long memberID) {
         this.amount = amount;
         this.transactionDate = transactionDate;
         this.accountTypeID = accountTypeID;
@@ -41,6 +41,10 @@ public class AccountTransactionDto implements Serializable {
     }
 
     public AccountTransactionDto(AccountTransaction accountTransaction) {
+        this.setAmount(accountTransaction.getAmount());
+        this.setTransactionDate(accountTransaction.getTransactionDate());
+        this.setAccountTypeID(accountType.getAccountTypeID());
+        this.setMemberID(member.getMemberID());
     }
 
     @ApiModelProperty(position = 1,
@@ -50,11 +54,11 @@ public class AccountTransactionDto implements Serializable {
         dataType = "java.lang.String",
         example = "200",
         required = false)
-    public Long getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

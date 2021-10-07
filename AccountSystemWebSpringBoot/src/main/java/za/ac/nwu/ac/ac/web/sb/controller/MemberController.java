@@ -28,9 +28,9 @@ public class MemberController {
     private final ModifyMemberFlow modifyMemberFlow;
 
     @Autowired
-    public MemberController(FetchMemberFlow fetchMemberFlow,
-                            CreateMemberFlow createMemberFlow,
-                            ModifyMemberFlow modifyMemberFlow) {
+    public MemberController(@Qualifier("fetchMemberFlowName") FetchMemberFlow fetchMemberFlow,
+                            @Qualifier("createMemberFlowName") CreateMemberFlow createMemberFlow,
+                            @Qualifier("modifyMemberFlowName") ModifyMemberFlow modifyMemberFlow) {
         this.createMemberFlow = createMemberFlow;
         this.fetchMemberFlow = fetchMemberFlow;
         this.modifyMemberFlow = modifyMemberFlow;
@@ -57,13 +57,21 @@ public class MemberController {
             @ApiResponse(code = 404, message = "Resource not found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
     })
-    public ResponseEntity<GeneralResponse<MemberDto>> getMember (
+    public ResponseEntity<GeneralResponse<MemberDto>> getMember(
             @ApiParam(value = "The memberID that uniquely identifies the Member.",
-                example = "1",
-                name = "memberID",
-                required = true)
-            @RequestParam("memberID") final Long memberID) {
-        MemberDto member = fetchMemberFlow.getMemberByMemberID(memberID);
+                    example = "1",
+                    name = "memberID",
+                    required = true)
+            @RequestParam("memberID") final Long memberID,
+
+            @ApiParam(value = "The accountTypeID that uniquely identifies the AccountType.",
+                    example = "1",
+                    name = "accountTypeID",
+                    required = true)
+            @RequestParam("accountTypeID")final Long accountTypeID)
+
+    {
+        MemberDto member = fetchMemberFlow.getMemberByMemberID(memberID, accountTypeID);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true, member);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -82,7 +90,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PutMapping("{memberID}")
+    /*@PutMapping("{memberID}")
     @ApiOperation(value = "Updates the specified Member.", notes = "Updates an existing Member corresponding to the given MemberID.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The Member was updated successfully", response = GeneralResponse.class),
@@ -109,9 +117,9 @@ public class MemberController {
         MemberDto memberResponse = modifyMemberFlow.updateMemberByMemberID(newMemberName, newMemberEmail, memberID);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+    }*/
 
-    @DeleteMapping("{memberID}")
+    /*@DeleteMapping("{memberID}")
     @ApiOperation(value = "Deletes specified Member.", notes = "Deletes the Member corresponding to the given memberID.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Goal Found"),
@@ -128,6 +136,43 @@ public class MemberController {
         MemberDto memberResponse = modifyMemberFlow.deleteMemberByMemberID(memberID);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }*/
+
+    @PutMapping("add/{addCurrency}")
+    @ApiOperation(value = "Adds specified currency amount to the specified Member.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "The amount was added successfully", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<MemberDto>> addCurrency(
+            @ApiParam(value = "The amount that needs to be added to account.",
+                    example = "200",
+                    name = "addCurrency",
+                    required = true)
+            @PathVariable("addCurrency") final String amount,
+
+            @ApiParam(value = "The memberID that uniquely identifies the member.",
+                    example = "1",
+                    name = "memberID",
+                    required = true)
+            @RequestParam("memberID") final Long memberID,
+
+            @ApiParam(value = "The accountID that uniquely identifies the accountType.",
+                    example = "1",
+                    name = "accountTypeID",
+                    required = true)
+            @RequestParam("accountTypeID") final Long accountID) {
+
+        Integer intAmount = 0;
+        try {
+            intAmount = Integer.parseInt(amount);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to parse String to Integer", e);
+        }
+        MemberDto memberResponse = modifyMemberFlow.addCurrency(intAmount, memberID, accountID);
+        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
 }

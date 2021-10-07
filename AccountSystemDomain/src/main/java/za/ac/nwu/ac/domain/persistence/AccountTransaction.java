@@ -13,12 +13,12 @@ public class AccountTransaction implements Serializable {
     private static final long serialVersionUID = 5687286736050369260L;
 
     private Long transactionID;
-    private AccountType accountType;
-    private Member member;
-    private Long amount;
+    private Integer amount;
     private LocalDate transactionDate;
+    private Long memberID;
+    private Long accountTypeID;
 
-    public AccountTransaction(Long amount, LocalDate transactionDate) {
+    public AccountTransaction(Integer amount, LocalDate transactionDate) {
         this.amount = amount;
         this.transactionDate = transactionDate;
     }
@@ -26,12 +26,16 @@ public class AccountTransaction implements Serializable {
     public AccountTransaction() {
     }
 
-    public AccountTransaction(Long transactionID, AccountType accountType, Member member, Long amount, LocalDate transactionDate) {
+    public AccountTransaction(Long transactionID, Integer amount, LocalDate transactionDate) {
         this.transactionID = transactionID;
-        this.accountType = accountType;
-        this.member = member;
         this.amount = amount;
         this.transactionDate = transactionDate;
+    }
+
+    public AccountTransaction(Integer amount, Long memberID, Long accountTypeID) {
+        this.amount = amount;
+        this.memberID = memberID;
+        this.accountTypeID = accountTypeID;
     }
 
     @Id
@@ -47,32 +51,30 @@ public class AccountTransaction implements Serializable {
         this.transactionID = transactionID;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ACCOUNT_TYPE_ID")
-    public AccountType getAccountType() {
-        return accountType;
+    @Column(name = "ACCOUNT_TYPE_ID")
+    public Long getAccountTypeID() {
+        return accountTypeID;
     }
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
-    public Member getMember() {
-        return member;
+    @Column(name = "MEMBER_ID")
+    public Long getMemberID() {
+        return memberID;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setMemberID(Long memberID) {
+        this.memberID = memberID;
     }
 
     @Column(name = "AMOUNT")
-    public Long getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

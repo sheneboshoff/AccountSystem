@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
-@Component
+@Component("fetchMemberFlowName")
 public class FetchMemberFlowImpl implements FetchMemberFlow {
 
     private final MemberTranslator memberTranslator;
@@ -26,7 +26,7 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
     }
 
     @Override
-    public MemberDto getMemberByMemberID(Long memberID){
-        return memberTranslator.getMemberByMemberID(memberID);
+    public MemberDto getMemberByMemberID(Long memberID, Long accountTypeID){
+        return memberTranslator.getMemberByMemberID(memberID, accountTypeID);
     }
 }

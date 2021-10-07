@@ -14,7 +14,7 @@ public class AccountType {
     private String mnemonic;
     private String accountTypeName;
     private LocalDate creationDate;
-    private Set<AccountTransaction> accountTransactions;
+    //private Set<AccountTransaction> accountTransactions;
 
     public AccountType() {
     }
@@ -72,14 +72,14 @@ public class AccountType {
         this.creationDate = creationDate;
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    /*@OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }
 
     public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
         this.accountTransactions = accountTransactions;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

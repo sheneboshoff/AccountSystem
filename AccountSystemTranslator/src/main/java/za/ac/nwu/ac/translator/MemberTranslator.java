@@ -13,9 +13,10 @@ public interface MemberTranslator {
 
     MemberDto create(MemberDto member);
 
-    MemberDto updateMemberByMemberID(String newMemberName, String newMemberEmail, Long memberID);
+    MemberDto updateMemberAccountAmount(Integer newAmount, Long memberID, Long accountTypeID);
 
-    MemberDto deleteMemberByMemberID(Long memberID);
+    MemberDto getMemberByMemberID(Long memberID, Long accountTypeID);
 
-    MemberDto getMemberByMemberID(Long memberID);
+    Integer getAccountAmountByMemberID(Long memberID);
+
 }

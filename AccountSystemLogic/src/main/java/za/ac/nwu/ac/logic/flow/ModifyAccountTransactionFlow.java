@@ -8,4 +8,8 @@ public interface ModifyAccountTransactionFlow {
     AccountTransactionDto updateAccountTransaction();
 
     AccountTransactionDto updateAccountTransaction(Long amount, LocalDate transactionDate);
+
+    /*AccountTransactionDto addCurrency(Integer amount, Long memberID, Long accountID, LocalDate transactionDate);
+
+    AccountTransactionDto subtractCurrency(Integer amount, Long memberID, Long accountID, LocalDate transactionDate);*/
 }

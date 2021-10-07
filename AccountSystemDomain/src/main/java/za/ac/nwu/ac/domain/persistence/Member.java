@@ -12,25 +12,33 @@ public class Member {
     private Long memberID;
     private String memberName;
     private String memberEmail;
-    private Long accountAmount;
+    private Integer accountAmount;
     private LocalDate dateJoined;
-    private Set<AccountTransaction> accountTransactions;
+    private Long accountTypeID;
 
     public Member(){}
 
-    public Member(Long memberID, String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined) {
+    public Member(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID) {
         this.memberID = memberID;
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
         this.dateJoined = dateJoined;
+        this.accountTypeID = accountTypeID;
     }
 
-    public Member(String memberName, String memberEmail, Long accountAmount, LocalDate dateJoined) {
+    public Member(String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID) {
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
         this.dateJoined = dateJoined;
+        this.accountTypeID = accountTypeID;
+    }
+
+    public Member(Integer accountAmount, Long memberID, Long accountTypeID) {
+        this.accountAmount = accountAmount;
+        this.memberID = memberID;
+        this.accountTypeID = accountTypeID;
     }
 
     @Id
@@ -65,11 +73,11 @@ public class Member {
     }
 
     @Column(name = "ACCOUNT_AMOUNT")
-    public Long getAccountAmount() {
+    public Integer getAccountAmount() {
         return accountAmount;
     }
 
-    public void setAccountAmount(Long accountAmount) {
+    public void setAccountAmount(Integer accountAmount) {
         this.accountAmount = accountAmount;
     }
 
@@ -82,13 +90,22 @@ public class Member {
         this.dateJoined = dateJoined;
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    /*@OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }
 
     public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
         this.accountTransactions = accountTransactions;
+    }*/
+
+    @Column(name = "ACCOUNT_TYPE_ID")
+    public Long getAccountTypeID() {
+        return accountTypeID;
+    }
+
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
     }
 
     @Override
@@ -96,12 +113,12 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(memberID, member.memberID) && Objects.equals(memberName, member.memberName) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(accountAmount, member.accountAmount) && Objects.equals(dateJoined, member.dateJoined) && Objects.equals(accountTransactions, member.accountTransactions);
+        return Objects.equals(memberID, member.memberID) && Objects.equals(memberName, member.memberName) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(accountAmount, member.accountAmount) && Objects.equals(dateJoined, member.dateJoined)/* && Objects.equals(accountTransactions, member.accountTransactions)*/;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined, accountTransactions);
+        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined/*, accountTransactions*/);
     }
 
     @Override
@@ -111,8 +128,8 @@ public class Member {
                 ", memberName='" + memberName + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +
                 ", accountAmount=" + accountAmount +
-                ", dateJoined=" + dateJoined +
-                ", accountTransactions=" + accountTransactions +
+                ", dateJoined=" + dateJoined/* +
+                ", accountTransactions=" + accountTransactions*/ +
                 '}';
     }
 }

@@ -2,11 +2,11 @@ package za.ac.nwu.ac.logic.flow;
 
 import za.ac.nwu.ac.domain.dto.MemberDto;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 public interface ModifyMemberFlow {
 
-    MemberDto deleteMemberByMemberID(Long memberID);
-
-    MemberDto updateMemberByMemberID(String memberNewName, String memberEmail, Long memberID);
+    @Transactional
+    MemberDto addCurrency(Integer newAmount, Long memberID, Long accountTypeID);
 }

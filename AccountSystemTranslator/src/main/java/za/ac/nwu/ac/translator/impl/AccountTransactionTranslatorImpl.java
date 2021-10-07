@@ -7,6 +7,7 @@ import za.ac.nwu.ac.domain.persistence.AccountTransaction;
 import za.ac.nwu.ac.repo.persistence.AccountTransactionRepository;
 import za.ac.nwu.ac.translator.AccountTransactionTranslator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,32 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
         } catch (Exception e) {
             throw new RuntimeException("Unable to save to the database", e);
         }
+    }
+
+   /* @Override
+    public AccountTransactionDto addCurrency(Integer amount, Long memberID, Long accountTypeID, LocalDate transactionDate) {
+        try {
+            AccountTransaction accountTransaction = accountTransactionRepository.getAccountTransactionByID(memberID);
+            accountTransactionRepository.addCurrency(amount, memberID, accountTypeID, transactionDate);
+            return new AccountTransactionDto(accountTransaction);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to save to the database", e);
+        }
+    }
+
+    @Override
+    public AccountTransactionDto subtractCurrency(Integer amount, Long memberID, Long accountTypeID, LocalDate transactionDate) {
+        try {
+            AccountTransaction accountTransaction = accountTransactionRepository.getAccountTransactionByID(memberID);
+            accountTransactionRepository.subtractCurrency(amount, memberID, accountTypeID, transactionDate);
+            return new AccountTransactionDto(accountTransaction);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to save to the database", e);
+        }
+    }*/
+
+    @Override
+    public AccountTransactionDto updateTransaction(Integer amount, Long memberID, Long accountTypeID) {
+        return null;
     }
 }
