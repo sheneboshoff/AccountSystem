@@ -42,10 +42,10 @@ public class MemberDto implements Serializable {
     }
 
     public MemberDto(Member member) {
-        //this.setMemberEmail(member.getMemberEmail());
-        //this.setMemberName(member.getMemberName());
+        this.setMemberEmail(member.getMemberEmail());
+        this.setMemberName(member.getMemberName());
         this.setAccountAmount(member.getAccountAmount());
-        //this.setDateJoined(member.getDateJoined());
+        this.setDateJoined(member.getDateJoined());
         this.setMemberID(member.getMemberID());
         this.setAccountTypeID(member.getAccountTypeID());
     }

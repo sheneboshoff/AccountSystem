@@ -27,7 +27,6 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
         try {
             Integer newBalance = 0;
             Integer oldBalance = 0;
-            //oldBalance = memberTranslator.getMemberByMemberID(memberID, accountTypeID).getAccountAmount();
             oldBalance = memberTranslator.getAccountAmountByMemberID(memberID);
             newBalance = oldBalance + amount;
             Member member = new Member(newBalance, memberID, accountTypeID);
@@ -35,6 +34,27 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
             return result; //memberTranslator.addCurrency(newBalance, memberID, accountTypeID);
         } catch (Exception e) {
             throw new RuntimeException("Unable to add currency amount to the member.", e);
+        }
+    }
+
+    @Transactional
+    @Override
+    public MemberDto subtractCurrency(Integer amount, Long memberID, Long accountTypeID) {
+        try {
+            Integer newBalance = 0;
+            Integer oldBalance = 0;
+            oldBalance = memberTranslator.getAccountAmountByMemberID(memberID);
+            newBalance = oldBalance - amount;
+            if (newBalance >= 0) {
+                Member member = new Member(newBalance, memberID, accountTypeID);
+                MemberDto result = memberTranslator.updateMemberAccountAmount(newBalance, memberID, accountTypeID);
+                return result;
+            }
+            else {
+                throw new RuntimeException("Unable to subtract amount, balance will be negative");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to subtract currency amount from the member.", e);
         }
     }
 
