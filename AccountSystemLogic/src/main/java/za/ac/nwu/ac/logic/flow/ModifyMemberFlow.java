@@ -9,8 +9,8 @@ import java.time.LocalDate;
 public interface ModifyMemberFlow {
 
     @Transactional
-    MemberDto addCurrency(Integer newAmount, Long memberID, Long accountTypeID);
+    MemberDto addCurrency(Integer newAmount, Long memberID, Long accountTypeID, LocalDate dateStarted);
 
     @Transactional
-    MemberDto subtractCurrency(Integer newAmount, Long memberID, Long accountTypeID);
+    MemberDto subtractCurrency(Integer newAmount, Long memberID, Long accountTypeID, LocalDate dateStarted);
 }

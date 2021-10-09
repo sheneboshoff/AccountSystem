@@ -13,7 +13,7 @@ public interface MemberTranslator {
 
     MemberDto create(MemberDto member);
 
-    MemberDto updateMemberAccountAmount(Integer newAmount, Long memberID, Long accountTypeID);
+    MemberDto updateMemberAccountAmount(Integer newAmount, Long memberID, Long accountTypeID, LocalDate dateStarted);
 
     MemberDto getMemberByMemberID(Long memberID, Long accountTypeID);
 

@@ -16,11 +16,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "DELETE FROM Member m WHERE m.memberID = :memberID")
     void deleteMemberByMemberID(Long memberID);
 
-    /*@Modifying
-    @Query(value = "UPDATE Member m SET m.memberName = :newMemberName, "+
-            "m.memberEmail = :newMemberEmail WHERE m.memberID = :memberID")
-    void updateMemberByMemberID(Long memberID, String newMemberName, String newMemberEmail);*/
-
     @Modifying
     @Query(value = "UPDATE Member m SET m.memberName = :newMemberName, m.memberEmail = :newMemberEmail "+
                     "WHERE m.memberID = :memberID")
@@ -30,8 +25,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member getMemberByMemberID(Long memberID, Long accountTypeID);
 
     @Modifying
-    @Query(value = "UPDATE Member m SET m.accountAmount = :addCurrency WHERE m.memberID = :memberID AND m.accountTypeID = :accountTypeID")
-    void updateMemberAccountAmount(@Param("addCurrency") Integer newAmount, @Param("memberID") Long memberID, @Param("accountTypeID") Long accountTypeID);
+    @Query(value = "UPDATE Member m SET m.accountAmount = :addCurrency, m.startDate = :startDate WHERE m.memberID = :memberID AND m.accountTypeID = :accountTypeID")
+    void updateMemberAccountAmount(@Param("addCurrency") Integer newAmount, @Param("memberID") Long memberID, @Param("accountTypeID") Long accountTypeID, @Param("startDate") LocalDate startDate);
 
     @Query(value = "SELECT m.accountAmount FROM Member m WHERE m.memberID = :memberID")
     Integer getAccountAmountByMemberID(@Param("memberID") Long memberID);

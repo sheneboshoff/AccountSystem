@@ -21,24 +21,27 @@ public class MemberDto implements Serializable {
     private Integer accountAmount;
     private LocalDate dateJoined;
     private Long accountTypeID;
+    private LocalDate startDate;
 
     public MemberDto(){}
 
-    public MemberDto(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined) {
+    public MemberDto(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, LocalDate startDate) {
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
         this.dateJoined = dateJoined;
         this.memberID = memberID;
+        this.startDate = startDate;
     }
 
-    public MemberDto(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID) {
+    public MemberDto(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID, LocalDate startDate) {
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
         this.dateJoined = dateJoined;
         this.memberID = memberID;
         this.accountTypeID = accountTypeID;
+        this.startDate = startDate;
     }
 
     public MemberDto(Member member) {
@@ -48,6 +51,7 @@ public class MemberDto implements Serializable {
         this.setDateJoined(member.getDateJoined());
         this.setMemberID(member.getMemberID());
         this.setAccountTypeID(member.getAccountTypeID());
+        this.setStartDate(member.getStartDate());
     }
 
     @ApiModelProperty(position = 5,
@@ -134,6 +138,20 @@ public class MemberDto implements Serializable {
 
     public void setAccountTypeID(Long accountTypeID) {
         this.accountTypeID = accountTypeID;
+    }
+
+    @ApiModelProperty(position = 7,
+            value = "Start Date",
+            name = "StartDate",
+            notes = "Date that the currency was added/subtracted",
+            dataType = "java.lang.LocalDate",
+            example = "2021-01-01")
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override

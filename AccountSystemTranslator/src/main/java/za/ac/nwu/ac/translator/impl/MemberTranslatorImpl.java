@@ -9,6 +9,7 @@ import za.ac.nwu.ac.repo.persistence.MemberRepository;
 import za.ac.nwu.ac.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +58,10 @@ public class MemberTranslatorImpl implements MemberTranslator {
 
     @Transactional
     @Override
-    public MemberDto updateMemberAccountAmount(Integer newAmount, Long memberID, Long accountTypeID) {
+    public MemberDto updateMemberAccountAmount(Integer newAmount, Long memberID, Long accountTypeID, LocalDate dateStarted) {
         try {
             Member member = new Member(newAmount, memberID, accountTypeID);
-            memberRepository.updateMemberAccountAmount(newAmount, memberID, accountTypeID);
+            memberRepository.updateMemberAccountAmount(newAmount, memberID, accountTypeID, dateStarted);
             return new MemberDto(member);
         } catch (Exception e) {
             throw new RuntimeException("Unable to update the database", e);

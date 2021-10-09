@@ -23,15 +23,14 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
 
     @Transactional
     @Override
-    public MemberDto addCurrency(Integer amount, Long memberID, Long accountTypeID) {
+    public MemberDto addCurrency(Integer amount, Long memberID, Long accountTypeID, LocalDate dateStarted) {
         try {
-            Integer newBalance = 0;
+            int newBalance = 0;
             Integer oldBalance = 0;
             oldBalance = memberTranslator.getAccountAmountByMemberID(memberID);
             newBalance = oldBalance + amount;
             Member member = new Member(newBalance, memberID, accountTypeID);
-            MemberDto result = memberTranslator.updateMemberAccountAmount(newBalance, memberID, accountTypeID);
-            return result; //memberTranslator.addCurrency(newBalance, memberID, accountTypeID);
+            return memberTranslator.updateMemberAccountAmount(newBalance, memberID, accountTypeID, dateStarted);
         } catch (Exception e) {
             throw new RuntimeException("Unable to add currency amount to the member.", e);
         }
@@ -39,7 +38,7 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
 
     @Transactional
     @Override
-    public MemberDto subtractCurrency(Integer amount, Long memberID, Long accountTypeID) {
+    public MemberDto subtractCurrency(Integer amount, Long memberID, Long accountTypeID, LocalDate dateStarted) {
         try {
             Integer newBalance = 0;
             Integer oldBalance = 0;
@@ -47,7 +46,7 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
             newBalance = oldBalance - amount;
             if (newBalance >= 0) {
                 Member member = new Member(newBalance, memberID, accountTypeID);
-                MemberDto result = memberTranslator.updateMemberAccountAmount(newBalance, memberID, accountTypeID);
+                MemberDto result = memberTranslator.updateMemberAccountAmount(newBalance, memberID, accountTypeID, dateStarted);
                 return result;
             }
             else {

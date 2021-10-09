@@ -15,16 +15,18 @@ public class Member {
     private Integer accountAmount;
     private LocalDate dateJoined;
     private Long accountTypeID;
+    private LocalDate startDate;
 
     public Member(){}
 
-    public Member(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID) {
+    public Member(Long memberID, String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID, LocalDate startDate) {
         this.memberID = memberID;
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.accountAmount = accountAmount;
         this.dateJoined = dateJoined;
         this.accountTypeID = accountTypeID;
+        this.startDate = startDate;
     }
 
     public Member(String memberName, String memberEmail, Integer accountAmount, LocalDate dateJoined, Long accountTypeID) {
@@ -90,15 +92,6 @@ public class Member {
         this.dateJoined = dateJoined;
     }
 
-    /*@OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true, cascade = CascadeType.PERSIST)
-    public Set<AccountTransaction> getAccountTransactions() {
-        return accountTransactions;
-    }
-
-    public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
-        this.accountTransactions = accountTransactions;
-    }*/
-
     @Column(name = "ACCOUNT_TYPE_ID")
     public Long getAccountTypeID() {
         return accountTypeID;
@@ -108,17 +101,26 @@ public class Member {
         this.accountTypeID = accountTypeID;
     }
 
+    @Column(name = "START_DATE")
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(memberID, member.memberID) && Objects.equals(memberName, member.memberName) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(accountAmount, member.accountAmount) && Objects.equals(dateJoined, member.dateJoined)/* && Objects.equals(accountTransactions, member.accountTransactions)*/;
+        return Objects.equals(memberID, member.memberID) && Objects.equals(memberName, member.memberName) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(accountAmount, member.accountAmount) && Objects.equals(dateJoined, member.dateJoined) && Objects.equals(accountTypeID, member.accountTypeID) && Objects.equals(startDate, member.startDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined/*, accountTransactions*/);
+        return Objects.hash(memberID, memberName, memberEmail, accountAmount, dateJoined, accountTypeID, startDate);
     }
 
     @Override
@@ -128,8 +130,9 @@ public class Member {
                 ", memberName='" + memberName + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +
                 ", accountAmount=" + accountAmount +
-                ", dateJoined=" + dateJoined/* +
-                ", accountTransactions=" + accountTransactions*/ +
+                ", dateJoined=" + dateJoined +
+                ", accountTypeID=" + accountTypeID +
+                ", startDate=" + startDate +
                 '}';
     }
 }

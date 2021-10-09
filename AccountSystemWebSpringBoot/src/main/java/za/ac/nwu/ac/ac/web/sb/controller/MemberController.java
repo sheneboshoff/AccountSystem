@@ -3,6 +3,7 @@ package za.ac.nwu.ac.ac.web.sb.controller;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.ac.domain.service.GeneralResponse;
@@ -113,15 +114,21 @@ public class MemberController {
                     example = "1",
                     name = "accountTypeID",
                     required = true)
-            @RequestParam("accountTypeID") final Long accountID) {
+            @RequestParam("accountTypeID") final Long accountID,
 
-        Integer intAmount = 0;
+            @ApiParam(value = "The optional date that the currency was added to the Member in ISO date format (yyyy-MM-dd)\n" +
+                    "If empty/null it will not be updated.",
+                    name = "dateStarted")
+            @RequestParam(value = "dateStarted", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateStarted) {
+
+        int intAmount = 0;
         try {
             intAmount = Integer.parseInt(amount);
         } catch (Exception e) {
             throw new RuntimeException("Unable to parse String to Integer", e);
         }
-        MemberDto memberResponse = modifyMemberFlow.addCurrency(intAmount, memberID, accountID);
+        MemberDto memberResponse = modifyMemberFlow.addCurrency(intAmount, memberID, accountID, dateStarted);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -149,16 +156,22 @@ public class MemberController {
                     example = "1",
                     name = "accountTypeID",
                     required = true)
-            @RequestParam("accountTypeID") final Long accountID) {
+            @RequestParam("accountTypeID") final Long accountID,
 
-        Integer intAmount = 0;
+            @ApiParam(value = "The optional date that the currency was subtracted from the Member in ISO date format (yyyy-MM-dd)\n" +
+                    "If empty/null it will not be updated.",
+                    name = "dateStarted")
+            @RequestParam(value = "dateStarted", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateStarted ) {
+
+        int intAmount = 0;
         try {
             intAmount = Integer.parseInt(amount);
-            intAmount = intAmount *= -1;
+            intAmount *= -1;
         } catch (Exception e) {
             throw new RuntimeException("Unable to parse String to Integer", e);
         }
-        MemberDto memberResponse = modifyMemberFlow.addCurrency(intAmount, memberID, accountID);
+        MemberDto memberResponse = modifyMemberFlow.addCurrency(intAmount, memberID, accountID, dateStarted);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
